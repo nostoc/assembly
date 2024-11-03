@@ -25,7 +25,7 @@ _start:
 
 start_loop:                             # start start_loop
     cmpl $0, %eax                       # check to see it we've hit the examined
-    je loop_exit
+    je loop_exit                        # if the two values are equal exit the loop
     incl %edi                           # load next value
     movl data_items(,%edi,4), %eax      
     cmpl %ebx, %eax                     # compare the values
@@ -38,6 +38,4 @@ loop_exit:
 
     movl $1, %eax                       # 1 is the exit() syscall
     int $0x80
-
-
 
