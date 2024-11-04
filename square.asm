@@ -7,6 +7,9 @@ section .data
 
     newline db 0xa
 
+    errormsg db " Invalid Input. Please enter a number between 0 - 9", 0
+    size3 equ $ - errormsg
+
   
 
 section .bss
@@ -16,6 +19,8 @@ section .text
 global _start
 
 _start:
+    
+    ;
     ; input
     ;display msg1
     ;Write t0 stdout (console)
@@ -31,6 +36,13 @@ _start:
     mov edx , 1 ; length ( read 1 bytes )
     mov eax , 3 ; system call number "sys_read "
     int 0x80 ; call kernel
+
+    mov al, Byte[inbuf]
+    cmp al, '0'             ; sets flags register
+    jl ERRORMSG              ; jump to endprog if al<0
+    cmp al, '9'             
+    jg ERRORMSG              ; jump to endprog if al>9
+
 
     ; process
     mov al, Byte[inbuf]    ; al=[inbuff] or al=charcter
@@ -67,7 +79,27 @@ _start:
 
    
     
-    
+    ENDPROG:
     mov ebx,0
     mov eax,1
     int 0x80
+
+    ERRORMSG:
+     mov edx, size3     ;msg length
+    mov ecx, errormsg  ; pointer to variable
+    mov ebx, 1      ;stdout
+    mov eax, 4      ;syscall number as sys_write
+    int 0x80
+
+     ; Display newline after squared number
+    mov edx, 1
+    mov ecx, newline        ; load newline character
+    mov ebx, 1
+    mov eax, 4
+    int 0x80                ; write newline to console
+  
+    jmp _start
+    ;jmp ENGPROG
+
+
+   
