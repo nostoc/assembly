@@ -1,7 +1,7 @@
 #test.asm ----> test.o -----> test
 
-square: square.o
-	ld -m elf_x86_64 -o square square.o
+forloop: forloop.o
+	ld -m elf_x86_64 -o forloop forloop.o
 
-square.o: square.asm
-	nasm -f elf64 -o square.o square.asm
+forloop.o: forloop.asm
+	nasm -f elf64 -o forloop.o forloop.asm

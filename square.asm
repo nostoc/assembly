@@ -98,8 +98,8 @@ _start:
     mov eax, 4
     int 0x80                ; write newline to console
   
-    jmp _start
-    ;jmp ENGPROG
+    ;jmp _start
+    jmp ENGPROG
 
 
    
