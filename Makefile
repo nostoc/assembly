@@ -1,7 +1,7 @@
 #test.asm ----> test.o -----> test
 
-minprog: minprog.o
-	ld -m elf_x86_64 -o minprog minprog.o
+square: square.o
+	ld -m elf_x86_64 -o square square.o
 
-minprog.o: minprog.asm
-	nasm -f elf64 -o minprog.o minprog.asm
+square.o: square.asm
+	nasm -f elf64 -o square.o square.asm
